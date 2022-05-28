@@ -185,5 +185,26 @@ namespace Microsoft.SyndicationFeed.Tests.Atom
                 }
             }
         }
+
+        [Fact]
+        public async Task ReadXmlContentWithNoTypeAttribute()
+        {
+            using( XmlReader xmlReader = XmlReader.Create(@"..\..\..\TestFeeds\atomFeedNoType.xml", new XmlReaderSettings { Async = true }))
+            {
+                var reader = new AtomFeedReader(xmlReader);
+
+                while (await reader.Read())
+                {
+                    if (reader.ElementType == SyndicationElementType.Item)
+                    {
+                        IAtomEntry entry = await reader.ReadEntry();
+
+                        Assert.True(entry.Id == "f2abcdef");
+                        Assert.True(entry.Title == "Fifteen Minute Electricity Consumption");
+                        Assert.True(entry.Description == "<MeterReading xmlns=\"http://naesb.org/espi\" />", "Actual: Description: " + entry.Description);
+                    }
+                }
+            }
+        }
     }
 }

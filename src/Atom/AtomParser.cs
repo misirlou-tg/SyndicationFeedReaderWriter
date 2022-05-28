@@ -488,9 +488,18 @@ namespace Microsoft.SyndicationFeed.Atom
                     // Children
                     else
                     {
-                        while (reader.IsStartElement())
+                        if (type == null && content.IsAtom(AtomElementNames.Content))
                         {
-                            content.AddField(ReadSyndicationContent(reader));
+                            // If no type is specified on an Atom content element we still must treat
+                            // the XML content as text
+                            content.Value = reader.ReadOuterXml();
+                        }
+                        else
+                        {
+                            while (reader.IsStartElement())
+                            {
+                                content.AddField(ReadSyndicationContent(reader));
+                            }
                         }
                     }
 
