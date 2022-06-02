@@ -493,6 +493,10 @@ namespace Microsoft.SyndicationFeed.Atom
                             // If no type is specified on an Atom content element we still must treat
                             // the XML content as text
                             content.Value = reader.ReadOuterXml();
+                            while (reader.IsStartElement())
+                            {
+                                content.Value += reader.ReadOuterXml();
+                            }
                         }
                         else
                         {

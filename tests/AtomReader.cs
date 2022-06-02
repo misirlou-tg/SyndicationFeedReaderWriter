@@ -199,9 +199,30 @@ namespace Microsoft.SyndicationFeed.Tests.Atom
                     {
                         IAtomEntry entry = await reader.ReadEntry();
 
-                        Assert.True(entry.Id == "f2abcdef");
-                        Assert.True(entry.Title == "Fifteen Minute Electricity Consumption");
-                        Assert.True(entry.Description == "<MeterReading xmlns=\"http://naesb.org/espi\" />", "Actual: Description: " + entry.Description);
+                        Assert.Equal("f2abcdef", entry.Id);
+                        Assert.Equal("Fifteen Minute Electricity Consumption", entry.Title);
+                        Assert.Equal("<MeterReading xmlns=\"http://naesb.org/espi\" />", entry.Description);
+                    }
+                }
+            }
+        }
+
+        [Fact]
+        public async Task ReadXmlContentWithNoTypeAttribute_2Elements()
+        {
+            using( XmlReader xmlReader = XmlReader.Create(@"..\..\..\TestFeeds\atomFeedNoType-2elements.xml", new XmlReaderSettings { Async = true }))
+            {
+                var reader = new AtomFeedReader(xmlReader);
+
+                while (await reader.Read())
+                {
+                    if (reader.ElementType == SyndicationElementType.Item)
+                    {
+                        IAtomEntry entry = await reader.ReadEntry();
+
+                        Assert.Equal("f2abcdef", entry.Id);
+                        Assert.Equal("Fifteen Minute Electricity Consumption", entry.Title);
+                        Assert.Equal("<MeterReading xmlns=\"http://naesb.org/espi\" /><IntervalBlock xmlns=\"\"><interval><duration>1000</duration></interval></IntervalBlock>", entry.Description);
                     }
                 }
             }

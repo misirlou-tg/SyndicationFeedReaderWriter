@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:atom10="http://www.w3.org/2005/Atom">
+  <id>f1abcdef</id>
+  <title>SMT Green Button Report: Interval</title>
+  <updated>2022-05-26T13:14:28Z</updated>
+  <link rel="self" href="/Subscription/f1"/>
+  <entry>
+    <id>f2abcdef</id>
+    <link rel="related" href="ReadingType/07"/>
+    <title>Fifteen Minute Electricity Consumption</title>
+    <content>
+      <MeterReading xmlns="http://naesb.org/espi"/>
+      <IntervalBlock xmlns=""><interval><duration>1000</duration></interval></IntervalBlock>
+    </content>
+    <published>2022-05-26T13:14:28Z</published>
+    <updated>2022-05-26T13:14:28Z</updated>
+  </entry>
+</feed>
